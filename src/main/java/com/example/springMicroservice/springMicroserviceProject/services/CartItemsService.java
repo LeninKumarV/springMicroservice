@@ -4,6 +4,8 @@ import com.example.springMicroservice.springMicroserviceProject.entity.CartItem;
 import com.example.springMicroservice.springMicroserviceProject.entity.Products;
 import com.example.springMicroservice.springMicroserviceProject.entity.User;
 import com.example.springMicroservice.springMicroserviceProject.models.CartItemVo;
+import com.example.springMicroservice.springMicroserviceProject.models.ProductsVo;
+import com.example.springMicroservice.springMicroserviceProject.models.UserVo;
 import com.example.springMicroservice.springMicroserviceProject.respository.CartItemRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.ProductsRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.UserRepository;
@@ -11,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,6 +30,7 @@ public class CartItemsService {
     private final ProductsRepository productsRepository;
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
+    private final ObjectMapper mapper;
 
     @Transactional
     public CartItemVo saveCartItem(CartItemVo vo) {
@@ -123,8 +127,8 @@ public class CartItemsService {
     private CartItemVo mapToVo(CartItem cartItem, String response) {
         return CartItemVo.builder()
                 .cartItemId(cartItem.getCartItemId())
-                .user(cartItem.getUser())
-                .products(cartItem.getProducts())
+                .user(mapper.convertValue(cartItem.getUser(), UserVo.class))
+                .products(mapper.convertValue(cartItem.getProducts(), ProductsVo.class))
                 .price(cartItem.getPrice())
                 .quantity(cartItem.getQuantity())
                 .response(response)

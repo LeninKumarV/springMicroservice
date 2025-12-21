@@ -1,6 +1,5 @@
 package com.example.springMicroservice.springMicroserviceProject.models;
 
-import com.example.springMicroservice.springMicroserviceProject.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
