@@ -130,7 +130,7 @@ public class UserService {
         return userRoles;
     }
 
-    private List<String> mapUserRoleToUserVo(List<UserRole> userRoles) {
+    public List<String> mapUserRoleToUserVo(List<UserRole> userRoles) {
         return userRoles == null
                 ? List.of()
                 : userRoles.stream().map(UserRole::name).toList();

@@ -9,11 +9,11 @@ import com.example.springMicroservice.springMicroserviceProject.models.UserVo;
 import com.example.springMicroservice.springMicroserviceProject.respository.CartItemRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.ProductsRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

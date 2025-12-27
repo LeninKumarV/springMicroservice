@@ -1,19 +1,16 @@
 package com.example.springMicroservice.springMicroserviceProject.services;
 
 import com.example.springMicroservice.springMicroserviceProject.entity.*;
-import com.example.springMicroservice.springMicroserviceProject.models.OrderItemVo;
-import com.example.springMicroservice.springMicroserviceProject.models.OrderVo;
-import com.example.springMicroservice.springMicroserviceProject.models.ProductsVo;
-import com.example.springMicroservice.springMicroserviceProject.models.UserVo;
+import com.example.springMicroservice.springMicroserviceProject.models.*;
 import com.example.springMicroservice.springMicroserviceProject.respository.CartItemRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.OrderRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.ProductsRepository;
 import com.example.springMicroservice.springMicroserviceProject.respository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -29,6 +26,8 @@ public class OrderService {
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
     private final OrderRepository orderRepository;
+    private final ObjectMapper mapper;
+    private final UserService userService;
 
     @Transactional
     public OrderVo saveOrder(UUID userId) {
@@ -66,21 +65,8 @@ public class OrderService {
         }
 
         cartItemRepository.deleteCartItemByUser(userId);
-        ObjectMapper mapper = new ObjectMapper();
-        OrderVo orderVo = mapper.convertValue(order, OrderVo.class);
-        orderVo.setUser(mapper.convertValue(order.getUser(), UserVo.class));
-        orderVo.setOrderItems(
-                order.getOrderItems().stream()
-                        .map(item -> {
-                            OrderItemVo vo = mapper.convertValue(item, OrderItemVo.class);
-                            vo.setProducts(mapper.convertValue(item.getProducts(), ProductsVo.class));
-                            return vo;
-                        })
-                        .toList()
-        );
-        orderVo.setResponse("Your order has been approved");
 
-        return orderVo;
+        return  mapToOrderVo(order);
     }
 
     private OrderItem mapToOrderItemsVo(CartItem cartItem) {
@@ -98,6 +84,53 @@ public class OrderService {
                 orderItems.stream()
                         .map(OrderItem::getPrice)
                         .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private OrderVo mapToOrderVo(Order order) {
+        return OrderVo.builder()
+                .orderId(order.getOrderId())
+                .orderStatus(order.getOrderStatus())
+                .totalAmount(order.getTotalAmount())
+                .createdOn(order.getCreatedOn())
+                .updatedOn(order.getUpdatedOn())
+                .user(UserVo.builder()
+                        .userId(order.getUser().getUserId())
+                        .firstName(order.getUser().getFirstName())
+                        .lastName(order.getUser().getLastName())
+                        .email(order.getUser().getEmail())
+                        .phoneNumber(order.getUser().getPhoneNumber())
+                        .role(userService.mapUserRoleToUserVo(order.getUser().getRole()))
+                        .address(mapper.convertValue(order.getUser().getAddress(), AddressVo.class))
+                        .createdOn(order.getUser().getCreatedOn().toString())
+                        .updatedOn(order.getUser().getUpdatedOn().toString())
+                        .build())
+                .orderItems(
+                        order.getOrderItems().stream()
+                                .map(item -> OrderItemVo.builder()
+                                        .orderItemId(item.getOrderItemId())
+                                        .price(item.getPrice())
+                                        .quantity(item.getQuantity())
+                                        .createdOn(item.getCreatedOn())
+                                        .updatedOn(item.getUpdatedOn())
+                                        .products(ProductsVo.builder()
+                                                .productId(item.getProducts().getProductId())
+                                                .productName(item.getProducts().getProductName())
+                                                .description(item.getProducts().getDescription())
+                                                .price(item.getProducts().getPrice())
+                                                .stockQuantity(item.getProducts().getStockQuantity())
+                                                .category(item.getProducts().getCategory())
+                                                .imageUrl(item.getProducts().getImageUrl())
+                                                .isActive(item.getProducts().getIsActive())
+                                                .createdOn(item.getProducts().getCreatedOn().toString())
+                                                .updatedOn(item.getProducts().getUpdatedOn().toString())
+                                                .build())
+                                        .build())
+                                .toList()
+                )
+                .createdOn(order.getCreatedOn())
+                .updatedOn(order.getUpdatedOn())
+                .response("Your order has been approved")
+                .build();
     }
 
 }

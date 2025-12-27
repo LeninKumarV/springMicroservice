@@ -38,7 +38,6 @@ public class Order {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference
     private List<OrderItem> orderItems;
 
     private Timestamp createdOn;

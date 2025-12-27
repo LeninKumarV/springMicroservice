@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/springMicroservices
+    url: jdbc:postgresql://host.docker.internal:5432/springMicroservices
+#  host.docker.internal
     username: postgres
     password: lenin
     driver-class-name: org.postgresql.Driver
