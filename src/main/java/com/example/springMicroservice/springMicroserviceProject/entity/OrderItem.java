@@ -1,6 +1,5 @@
 package com.example.springMicroservice.springMicroserviceProject.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -35,7 +34,7 @@ public class OrderItem {
     private BigDecimal price;
     private BigInteger quantity;
 
-    private Timestamp createdOn;
-    private Timestamp updatedOn;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 }
 

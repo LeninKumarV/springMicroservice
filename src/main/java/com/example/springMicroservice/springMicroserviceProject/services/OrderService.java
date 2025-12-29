@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,8 +42,8 @@ public class OrderService {
         Order order = Order.builder()
                 .user(user)
                 .orderStatus(OrderStatus.PENDING)
-                .createdOn(new Timestamp(System.currentTimeMillis()))
-                .updatedOn(new Timestamp(System.currentTimeMillis()))
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         List<OrderItem> orderItems = cartItems.stream()

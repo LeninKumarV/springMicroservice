@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +43,7 @@ public class ProductsService {
                     .category(vo.getCategory())
                     .imageUrl(vo.getImageUrl())
                     .isActive(vo.getIsActive())
-                    .updatedOn(new Timestamp(System.currentTimeMillis()))
+                    .updatedOn(LocalDateTime.now())
                     .build();
 
             Products saved = productsRepository.save(updatedProduct);
@@ -57,8 +58,8 @@ public class ProductsService {
                     .category(vo.getCategory())
                     .imageUrl(vo.getImageUrl())
                     .isActive(Boolean.TRUE)
-                    .createdOn(new Timestamp(System.currentTimeMillis()))
-                    .updatedOn(new Timestamp(System.currentTimeMillis()))
+                    .createdOn(LocalDateTime.now())
+                    .updatedOn(LocalDateTime.now())
                     .build();
 
             Products saved = productsRepository.save(product);
@@ -97,7 +98,7 @@ public class ProductsService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
         product.setIsActive(false);
-        product.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+        product.setUpdatedOn(LocalDateTime.now());
         Products deleteProduct= productsRepository.save(product);
         return buildVo(deleteProduct, "Product Deleted Successfully");
     }

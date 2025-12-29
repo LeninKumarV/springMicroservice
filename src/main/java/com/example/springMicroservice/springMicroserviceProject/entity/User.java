@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +32,6 @@ public class User {
             referencedColumnName = "addressId"
     )
     private Address address;
-    private Timestamp createdOn;
-    private Timestamp updatedOn;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 }

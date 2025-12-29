@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +26,7 @@ public class OrderVo {
     private OrderStatus orderStatus;
     @JsonManagedReference
     private List<OrderItemVo> orderItems;
-    private Timestamp createdOn;
-    private Timestamp updatedOn;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
     private String response;
 }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +29,6 @@ public class Products {
     private String category;
     private String imageUrl;
     private Boolean isActive;
-    private Timestamp createdOn;
-    private Timestamp updatedOn;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 }

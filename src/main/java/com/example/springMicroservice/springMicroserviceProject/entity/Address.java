@@ -3,7 +3,7 @@ package com.example.springMicroservice.springMicroserviceProject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +22,7 @@ public class Address {
     private String state;
     private String country;
     private String postalCode;
-    private Timestamp createdOn;
-    private Timestamp updatedOn;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 }
 

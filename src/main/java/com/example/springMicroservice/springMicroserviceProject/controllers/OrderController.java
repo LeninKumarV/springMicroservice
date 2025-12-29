@@ -1,6 +1,5 @@
 package com.example.springMicroservice.springMicroserviceProject.controllers;
 
-import com.example.springMicroservice.springMicroserviceProject.models.CartItemVo;
 import com.example.springMicroservice.springMicroserviceProject.models.OrderVo;
 import com.example.springMicroservice.springMicroserviceProject.services.OrderService;
 import lombok.RequiredArgsConstructor;

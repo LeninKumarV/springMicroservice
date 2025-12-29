@@ -10,7 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +37,8 @@ public class UserService {
                 .phoneNumber(userVo.getPhoneNumber())
                 .role(fromValue(userVo.getRole()))
                 .address(address)
-                .createdOn(new Timestamp(System.currentTimeMillis()))
-                .updatedOn(new Timestamp(System.currentTimeMillis()))
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         User savedUser = userRepository.save(user);
@@ -82,8 +81,8 @@ public class UserService {
                 .state(vo.getState())
                 .country(vo.getCountry())
                 .postalCode(vo.getPostalCode())
-                .createdOn(new Timestamp(System.currentTimeMillis()))
-                .updatedOn(new Timestamp(System.currentTimeMillis()))
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .build();
     }
 

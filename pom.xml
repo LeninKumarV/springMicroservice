@@ -19,7 +19,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
     </properties>
 
     <dependencyManagement>
@@ -101,7 +101,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>20</release>
+                    <release>21</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

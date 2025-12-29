@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -64,7 +65,7 @@ public class CartItemsService {
                             product.getPrice().multiply(new BigDecimal(vo.getQuantity()));
                     cartItem.setPrice(cartItem.getPrice().add(additionalPrice));
 
-                    cartItem.setUpdatedOn(new Timestamp(System.currentTimeMillis()));
+                    cartItem.setUpdatedOn(LocalDateTime.now());
 
                     CartItem saved = cartItemRepository.save(cartItem);
                     return mapToVo(saved, "Cart Item Updated Successfully");
@@ -79,8 +80,8 @@ public class CartItemsService {
                                             .multiply(new BigDecimal(vo.getQuantity()))
                             )
                             .quantity(vo.getQuantity())
-                            .createdOn(new Timestamp(System.currentTimeMillis()))
-                            .updatedOn(new Timestamp(System.currentTimeMillis()))
+                            .createdOn(LocalDateTime.now())
+                            .updatedOn(LocalDateTime.now())
                             .build();
 
                     CartItem saved = cartItemRepository.save(cartItem);
